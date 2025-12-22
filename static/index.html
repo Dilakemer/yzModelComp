@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hata Türleri AI Test Sistemi</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <span class="logo-icon">🧪</span>
+                <h1>AI Test Lab</h1>
+            </div>
+            
+            <nav class="nav-menu">
+                <button class="nav-item active" data-view="dashboard">
+                    <span class="nav-icon">📊</span>
+                    Dashboard
+                </button>
+                <button class="nav-item" data-view="categories">
+                    <span class="nav-icon">📁</span>
+                    Kategoriler
+                </button>
+                <button class="nav-item" data-view="questions">
+                    <span class="nav-icon">❓</span>
+                    Sorular
+                </button>
+                <button class="nav-item" data-view="test">
+                    <span class="nav-icon">🤖</span>
+                    AI Testi
+                </button>
+                <button class="nav-item" data-view="results">
+                    <span class="nav-icon">📋</span>
+                    Sonuçlar
+                </button>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="model-status">
+                    <span class="status-dot"></span>
+                    <span id="model-count">0</span> Model Aktif
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard View -->
+            <section id="dashboard-view" class="view active">
+                <header class="view-header">
+                    <h2>Dashboard</h2>
+                    <p>Sistem genel durumu</p>
+                </header>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📁</div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="stat-categories">0</span>
+                            <span class="stat-label">Kategori</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">❓</div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="stat-questions">0</span>
+                            <span class="stat-label">Soru</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🧪</div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="stat-results">0</span>
+                            <span class="stat-label">Test Sonucu</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🤖</div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="stat-models">0</span>
+                            <span class="stat-label">Model</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="model-stats-section">
+                    <h3>Model Performans İstatistikleri</h3>
+                    <div id="model-stats-container" class="model-stats-grid">
+                        <!-- Model stats will be loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Categories View -->
+            <section id="categories-view" class="view">
+                <header class="view-header">
+                    <h2>Hata Kategorileri</h2>
+                    <p>Tablodaki tüm hata kategorileri</p>
+                </header>
+                
+                <div id="categories-container" class="categories-grid">
+                    <!-- Categories will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Questions View -->
+            <section id="questions-view" class="view">
+                <header class="view-header">
+                    <div>
+                        <h2>Sorular</h2>
+                        <p>Hata kategorileri için test soruları</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="showAddQuestionModal()">
+                        <span>+</span> Yeni Soru Ekle
+                    </button>
+                </header>
+                
+                <div class="filter-bar">
+                    <select id="question-category-filter" onchange="loadQuestions()">
+                        <option value="">Tüm Kategoriler</option>
+                    </select>
+                </div>
+                
+                <div id="questions-container" class="questions-list">
+                    <!-- Questions will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Test View -->
+            <section id="test-view" class="view">
+                <header class="view-header">
+                    <h2>AI Model Testi</h2>
+                    <p>Soruları yapay zeka modelleriyle test edin</p>
+                </header>
+                
+                <div class="test-container">
+                    <div class="test-form">
+                        <div class="form-group">
+                            <label>Soru Seçin</label>
+                            <select id="test-question-select">
+                                <option value="">Bir soru seçin...</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Model Seçin</label>
+                            <div class="model-selection">
+                                <div class="model-group">
+                                    <h4>🌟 Gemini Modelleri</h4>
+                                    <div id="gemini-models" class="model-checkboxes">
+                                        <!-- Gemini models -->
+                                    </div>
+                                </div>
+                                <div class="model-group">
+                                    <h4>🤗 Hugging Face Modelleri</h4>
+                                    <div id="huggingface-models" class="model-checkboxes">
+                                        <!-- HF models -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="test-actions">
+                            <button class="btn btn-secondary" onclick="selectAllModels()">Tümünü Seç</button>
+                            <button class="btn btn-secondary" onclick="deselectAllModels()">Temizle</button>
+                            <button class="btn btn-primary" onclick="runTest()">🚀 Testi Başlat</button>
+                        </div>
+                    </div>
+                    
+                    <div id="test-results" class="test-results">
+                        <!-- Test results will appear here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results View -->
+            <section id="results-view" class="view">
+                <header class="view-header">
+                    <h2>Test Sonuçları</h2>
+                    <p>Tüm AI model test sonuçları</p>
+                </header>
+                
+                <div class="filter-bar">
+                    <select id="result-question-filter" onchange="loadResults()">
+                        <option value="">Tüm Sorular</option>
+                    </select>
+                </div>
+                
+                <div id="results-container" class="results-list">
+                    <!-- Results will be loaded here -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Add Question Modal -->
+    <div id="add-question-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Yeni Soru Ekle</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Kategori</label>
+                    <select id="new-question-category">
+                        <!-- Categories will be loaded -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Soru Metni</label>
+                    <textarea id="new-question-text" rows="4" placeholder="Test sorusunu girin..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()">İptal</button>
+                <button class="btn btn-primary" onclick="addQuestion()">Ekle</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+        <p id="loading-text">Yükleniyor...</p>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
