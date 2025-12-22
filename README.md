@@ -135,10 +135,4 @@ yz_lab/
 - **429 Hatası (Gemini)**: Günlük kota aşıldı. Birkaç dakika bekleyin veya farklı model deneyin.
 - **404 Hatası**: Model bulunamadı. `ai_services.py` dosyasından model listesini güncelleyin.
 
-## 📄 Lisans
 
-Bu proje eğitim amaçlıdır.
-
----
-
-**Geliştirici**: YZ Lab
