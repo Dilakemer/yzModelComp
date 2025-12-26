@@ -71,7 +71,12 @@ yz_lab/
 ## 📺Ekran Görüntüleri
 
 ![Dashboard](comp0.jpeg)
-
+![ModelOptions](comp1.jpeg)
+![ModelTest](comp2.jpeg)
+![Questions](comp3.jpeg)
+![Results](comp4.jpeg)
+![AddQuestion](comp5.jpeg)
+![DefectCategories](comp6.jpeg)
 ## 🤖 Desteklenen Modeller
 
 ### Google Gemini
