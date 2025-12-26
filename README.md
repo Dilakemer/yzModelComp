@@ -68,6 +68,9 @@ yz_lab/
     ├── css/style.css    # Stiller
     └── js/app.js        # Frontend JavaScript
 ```
+## 📺Ekran Görüntüleri
+
+![Dashboard](comp0.jpeg)
 
 ## 🤖 Desteklenen Modeller
 
